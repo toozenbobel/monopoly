@@ -92,8 +92,13 @@ namespace MonopolyDesign.ViewModel.Windows
 	    {
 		    Items.Add(NewItem);
 
+		    var newItem = new ItemViewModel();
+		    newItem.Name = NewItem.Name;
+		    newItem.Color = NewItem.Color;
+
+			NewItem = newItem;
 			NewItem.Country = Countries.FirstOrDefault();
-		    NewItem.Prices[0].BuyPrice = 0;
+			NewItem.Prices[0].BuyPrice = 0;
 			NewItem.Prices[1].BuyPrice = 0;
 			NewItem.Prices[2].BuyPrice = 0;
 			NewItem.Prices[0].IncomePrice = 0;

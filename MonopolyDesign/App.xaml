@@ -5,9 +5,11 @@
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MonopolyDesign.ViewModel" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-                    <converters:IntToString x:Key="IntToString" />
-                </ResourceDictionary>
+					<converters:IntToString x:Key="IntToString" />
+					<converters:StringToUpper x:Key="StringToUpper" />
+				</ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+	        
         </ResourceDictionary>
 
     </Application.Resources>

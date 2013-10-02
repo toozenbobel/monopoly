@@ -6,11 +6,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
+        <StackPanel Margin="12">
             <TextBlock Text="Название организации" />
             <TextBox TabIndex="0" Text="{Binding NewItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Страна" />
@@ -58,71 +57,82 @@
                 <TextBox TabIndex="6" Text="{Binding NewItem.Prices[2].BuyPrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
                 <TextBox TabIndex="7" Grid.Column="1" Text="{Binding NewItem.Prices[2].IncomePrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
             </Grid>
-            <pt:ColorPicker2 SelectedColor="{Binding NewItem.Color, Mode=TwoWay}" />
-            <Button TabIndex="9" Content="Добавить" Command="{Binding AddCommand}" />
+			<pt:ColorPicker2 TabIndex="9" SelectedColor="{Binding NewItem.Color, Mode=TwoWay}" />
+            <Button TabIndex="10" Content="Добавить" Command="{Binding AddCommand}" />
+			
+			<Button Content="Сохранить" Margin="0,25,0,0" Click="SaveToFileClick" />
         </StackPanel>
 
-        <ItemsControl Grid.Column="1" ItemsSource="{Binding Items}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <StackPanel.Background>
-                            <SolidColorBrush Color="{Binding Color}" />
-                        </StackPanel.Background>
-                        <TextBlock Text="{Binding Name}" />
-                        <TextBlock Text="{Binding Country.Name}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        
-        <Grid Grid.Column="1">
-            <Border Background="Blue" Width="230" Height="130">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="45" />
-                        <RowDefinition Height="35" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    
-                    <Border Background="#FFFFFF" Opacity=".4" CornerRadius="20" Margin="5,-20,5,0">
-                        
-                    </Border>
-                    <TextBlock Text="МЕТАЛЛУРГИЧЕСКИЙ ЗАВОД" Margin="10,5,10,0" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold">
+       <Grid Grid.Column="1">
+			<ItemsControl Margin="12" Grid.Column="1" ItemsSource="{Binding Items}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border Width="230" Height="130" Margin="20">
+							<Border.Background>
+								<SolidColorBrush Color="{Binding Color}"></SolidColorBrush>
+							</Border.Background>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="45" />
+									<RowDefinition Height="35" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
 
-                    </TextBlock>
-                    
-                    <Border Background="LightGoldenrodYellow" Grid.Row="1" Margin="5,5" CornerRadius="20">
-                        
-                    </Border>
+								<Border Background="#FFFFFF" Opacity=".4" CornerRadius="20" Margin="5,-20,5,0">
 
-                    <TextBlock Text="Канада" Margin="10,5,10,5" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold">
+								</Border>
+								<TextBlock Text="{Binding Name, Converter={StaticResource StringToUpper}}" Margin="10,5,10,0" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold">
 
-                    </TextBlock>
+								</TextBlock>
 
-                    <Border Background="White" Grid.Row="2" Margin="5,0,5,-20" CornerRadius="20">
+								<Border Grid.Row="1" Margin="5,5" CornerRadius="10">
+									<Border.Background>
+										<SolidColorBrush Color="{Binding Color}"></SolidColorBrush>
+									</Border.Background>
+								</Border>
 
-                    </Border>
+								<Border Background="White" Opacity=".50" Grid.Row="1" Margin="5,5" CornerRadius="10">
 
-                    <Grid Grid.Row="2" Margin="20,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <TextBlock Text="80.000" />
-                            <TextBlock Text="160.000" />
-                            <TextBlock Text="240.000" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                            <TextBlock Text="80.000" />
-                            <TextBlock Text="160.000" />
-                            <TextBlock Text="240.000" />
-                        </StackPanel>
-                    </Grid>
+								</Border>
 
-                </Grid>
-            </Border>
+								<StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+									<Image Source="{Binding Country.Flag}" MaxHeight="20" />
+									<TextBlock Text="{Binding Country.Name}" Margin="10,5,10,5" TextWrapping="Wrap" TextAlignment="Center"  FontSize="15" FontWeight="Bold" />
+								</StackPanel>
+
+								<Border Background="White" Grid.Row="2" Margin="5,0,5,-20" CornerRadius="20">
+
+								</Border>
+
+								<Grid Grid.Row="2" Margin="20,0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="1*" />
+										<ColumnDefinition Width="1*" />
+									</Grid.ColumnDefinitions>
+									<StackPanel>
+										<TextBlock Text="{Binding Prices[0].BuyPrice}" />
+										<TextBlock Text="{Binding Prices[1].BuyPrice}" />
+										<TextBlock Text="{Binding Prices[2].BuyPrice}" />
+									</StackPanel>
+									<StackPanel Grid.Column="1" HorizontalAlignment="Right">
+										<TextBlock Text="{Binding Prices[0].IncomePrice}" />
+										<TextBlock Text="{Binding Prices[1].IncomePrice}" />
+										<TextBlock Text="{Binding Prices[1].IncomePrice}" />
+									</StackPanel>
+								</Grid>
+
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			
+			
         </Grid>
     </Grid>
 </Window>
