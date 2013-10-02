@@ -1,0 +1,128 @@
+﻿<Window x:Class="MonopolyDesign.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:pt="http://propertytools.codeplex.com"
+        Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Название организации" />
+            <TextBox TabIndex="0" Text="{Binding NewItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Страна" />
+            <ComboBox TabIndex="1" ItemsSource="{Binding Countries}" SelectedItem="{Binding NewItem.Country, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Flag}" MaxHeight="20" />
+                            <TextBlock Text="{Binding Name}" Grid.Column="1" />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Цена 1" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <TextBox TabIndex="2" Text="{Binding NewItem.Prices[0].BuyPrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
+                <TextBox TabIndex="3" Grid.Column="1" Text="{Binding NewItem.Prices[0].IncomePrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
+            </Grid>
+
+            <TextBlock Text="Цена 2" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox TabIndex="4" Text="{Binding NewItem.Prices[1].BuyPrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
+                <TextBox TabIndex="5" Grid.Column="1" Text="{Binding NewItem.Prices[1].IncomePrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
+            </Grid>
+            <TextBlock Text="Цена 3" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox TabIndex="6" Text="{Binding NewItem.Prices[2].BuyPrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
+                <TextBox TabIndex="7" Grid.Column="1" Text="{Binding NewItem.Prices[2].IncomePrice, Mode=TwoWay, Converter={StaticResource IntToString}}" />
+            </Grid>
+            <pt:ColorPicker2 SelectedColor="{Binding NewItem.Color, Mode=TwoWay}" />
+            <Button TabIndex="9" Content="Добавить" Command="{Binding AddCommand}" />
+        </StackPanel>
+
+        <ItemsControl Grid.Column="1" ItemsSource="{Binding Items}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="{Binding Color}" />
+                        </StackPanel.Background>
+                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Country.Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <Grid Grid.Column="1">
+            <Border Background="Blue" Width="230" Height="130">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Border Background="#FFFFFF" Opacity=".4" CornerRadius="20" Margin="5,-20,5,0">
+                        
+                    </Border>
+                    <TextBlock Text="МЕТАЛЛУРГИЧЕСКИЙ ЗАВОД" Margin="10,5,10,0" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold">
+
+                    </TextBlock>
+                    
+                    <Border Background="LightGoldenrodYellow" Grid.Row="1" Margin="5,5" CornerRadius="20">
+                        
+                    </Border>
+
+                    <TextBlock Text="Канада" Margin="10,5,10,5" Grid.Row="1" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold">
+
+                    </TextBlock>
+
+                    <Border Background="White" Grid.Row="2" Margin="5,0,5,-20" CornerRadius="20">
+
+                    </Border>
+
+                    <Grid Grid.Row="2" Margin="20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="80.000" />
+                            <TextBlock Text="160.000" />
+                            <TextBlock Text="240.000" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                            <TextBlock Text="80.000" />
+                            <TextBlock Text="160.000" />
+                            <TextBlock Text="240.000" />
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
